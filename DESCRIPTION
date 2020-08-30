@@ -1,0 +1,22 @@
+Package: meteoR
+Type: Package
+Title: Analyse meteo
+Version: 0.9999
+Authors@R: c(person("Bruno", "Claustres", role = c("aut", "cre"), email = "BClaustres@orange.fr"))
+Description: Netatmo data analysis
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    lubridate,
+    purrr,
+    readr,
+    stringr,
+    tibble,
+    tidyr,
+    knitr,
+    skimr
+Suggests:
+    listviewer
+RoxygenNote: 7.1.1
