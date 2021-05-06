@@ -93,16 +93,3 @@ db_study <- db_outdoor$data %>%
                ))
 
 heatmap(cor(na.omit(db_study[, -1])))
-
-pairsCorr(db_study %>% select(starts_with("T")))
-pairsCorr(db_study %>% select(starts_with("P")))
-pairsCorr(db_study %>% select(starts_with("R")))
-pairsCorr(db_study %>% select(starts_with("W")))
-
-tmp <- db_study %>% select(starts_with("P"))
-plot_lm(tmp$PRECTOT, tmp$PRECTOT_nasa)
-tmp <- db_study %>% select(starts_with("T"))
-plot_lm(tmp$TM, tmp$T2M_nasa)
-plot_lm(tmp$TM, tmp$T10M_nasa)
-plot_lm(tmp$TMIN, tmp$T2MIN_nasa)
-plot_lm(tmp$TMAX, tmp$T2MAX_nasa)
