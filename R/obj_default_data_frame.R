@@ -1,6 +1,8 @@
 #' @import R6
 #' @import skimr
 #' @import DT
+#'
+#' @export
 default_data_frame <- R6::R6Class(
   "default_data_frame",
   # Public ----
@@ -9,18 +11,16 @@ default_data_frame <- R6::R6Class(
       print(private$.data)
     },
 
+
     head = function(n = 9) {
       head(private$.data, n = n)
     },
+
 
     tail = function(n = 9) {
       tail(private$.data, n = n)
     },
 
-
-    summary = function() {
-      skimr::skim(private$.data)
-    },
 
     view = function() {
       DT::datatable(private$.data,
@@ -30,6 +30,7 @@ default_data_frame <- R6::R6Class(
                                    lengthMenu = list(c(10,25,50,-1),
                                                      c(10,25,50,"All"))))
     },
+
 
     subset = function(subset, select, drop = FALSE) {
       r <- if (missing(subset))
@@ -49,6 +50,7 @@ default_data_frame <- R6::R6Class(
       }
       return(private$.data[r, vars, drop = drop])
     },
+
 
     write_file = function(name, directory) {
       if (grepl(".csv$", name, fixed = FALSE)) {

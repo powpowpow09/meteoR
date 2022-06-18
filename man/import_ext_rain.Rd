@@ -19,5 +19,5 @@ Import rainfall from external module
 }
 \examples{
 csv_name <- "f:/r/netatmo/csv/Pluviometre_04_2017.csv"
-boo <- import_ext_rain(csv_name = csv_name)
+tmp <- import_ext_rain(csv_name = csv_name)
 }

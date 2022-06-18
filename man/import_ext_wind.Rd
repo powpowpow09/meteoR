@@ -19,5 +19,5 @@ Import wind from external module
 }
 \examples{
 csv_name <- "f:/r/netatmo/csv/Anemometre_04_2017.csv"
-boo <- import_ext_wind(csv_name = csv_name)
+tmp <- import_ext_wind(csv_name = csv_name)
 }

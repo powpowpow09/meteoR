@@ -19,5 +19,5 @@ Import temperature and humidity from external module
 }
 \examples{
 csv_name <- "f:/r/netatmo/csv/Exterieur_04_2017.csv"
-boo <- import_ext_temp_hum(csv_name = csv_name)
+tmp <- import_ext_temp_hum(csv_name = csv_name)
 }

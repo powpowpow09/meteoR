@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' csv_name <- "f:/r/netatmo/csv/Exterieur_04_2017.csv"
-#' boo <- import_ext_temp_hum(csv_name = csv_name)
+#' tmp <- import_ext_temp_hum(csv_name = csv_name)
 import_ext_temp_hum <- function(csv_name = NULL, ...) {
   # parameters control ------------------------------------------------------
   stopifnot(!is.null(csv_name))
@@ -28,7 +28,7 @@ import_ext_temp_hum <- function(csv_name = NULL, ...) {
 
 
   # function ----------------------------------------------------------------
-  boo <- readr::read_delim(
+  tmp <- readr::read_delim(
     file = csv_name,
     delim = delim,
     escape_double = FALSE,
@@ -39,10 +39,10 @@ import_ext_temp_hum <- function(csv_name = NULL, ...) {
     trim_ws = TRUE,
     skip = 2
   )
-  colnames(boo) <- c("id", "datetime", "temperature", "humidity")
-  boo$location <- "EXTERIEUR"
-  boo <- netatmo_files_datetime(boo)
-  return(boo)
+  colnames(tmp) <- c("id", "datetime", "temperature", "humidity")
+  tmp$location <- "EXTERIEUR"
+  tmp <- netatmo_files_datetime(tmp)
+  return(tmp)
 }
 
 
@@ -58,7 +58,7 @@ import_ext_temp_hum <- function(csv_name = NULL, ...) {
 #'
 #' @examples
 #' csv_name <- "f:/r/netatmo/csv/Pluviometre_04_2017.csv"
-#' boo <- import_ext_rain(csv_name = csv_name)
+#' tmp <- import_ext_rain(csv_name = csv_name)
 import_ext_rain <- function(csv_name = NULL, ...) {
   # parameters control ------------------------------------------------------
   stopifnot(!is.null(csv_name))
@@ -76,7 +76,7 @@ import_ext_rain <- function(csv_name = NULL, ...) {
 
 
   # function ----------------------------------------------------------------
-  boo <- readr::read_delim(
+  tmp <- readr::read_delim(
     file = csv_name,
     delim = delim,
     escape_double = FALSE,
@@ -87,10 +87,10 @@ import_ext_rain <- function(csv_name = NULL, ...) {
     trim_ws = TRUE,
     skip = 2
   )
-  colnames(boo) <- c("id", "datetime", "rain")
-  boo$location <- "EXTERIEUR"
-  boo <- netatmo_files_datetime(boo)
-  return(boo)
+  colnames(tmp) <- c("id", "datetime", "rain")
+  tmp$location <- "EXTERIEUR"
+  tmp <- netatmo_files_datetime(tmp)
+  return(tmp)
 }
 
 
@@ -106,7 +106,7 @@ import_ext_rain <- function(csv_name = NULL, ...) {
 #'
 #' @examples
 #' csv_name <- "f:/r/netatmo/csv/Anemometre_04_2017.csv"
-#' boo <- import_ext_wind(csv_name = csv_name)
+#' tmp <- import_ext_wind(csv_name = csv_name)
 import_ext_wind <- function(csv_name = NULL, ...) {
   # parameters control ------------------------------------------------------
   stopifnot(!is.null(csv_name))
@@ -124,7 +124,7 @@ import_ext_wind <- function(csv_name = NULL, ...) {
 
 
   # function ----------------------------------------------------------------
-  boo <- readr::read_delim(
+  tmp <- readr::read_delim(
     file = csv_name,
     delim = delim,
     escape_double = FALSE,
@@ -135,16 +135,16 @@ import_ext_wind <- function(csv_name = NULL, ...) {
     trim_ws = TRUE,
     skip = 2
   )
-  colnames(boo) <-
+  colnames(tmp) <-
     c("id",
       "datetime",
       "wind_angle",
       "wind_strength",
       "gust_angle",
       "gust_strength")
-  boo$location <- "EXTERIEUR"
-  boo <- netatmo_files_datetime(boo)
-  return(boo)
+  tmp$location <- "EXTERIEUR"
+  tmp <- netatmo_files_datetime(tmp)
+  return(tmp)
 }
 
 
@@ -162,7 +162,7 @@ import_ext_wind <- function(csv_name = NULL, ...) {
 #'
 #' @examples
 #' csv_name <- "f:/r/netatmo/csv/Indoor_04_2017.csv"
-#' boo <- import_ext_wind(csv_name = csv_name)
+#' tmp <- import_ext_wind(csv_name = csv_name)
 import_int <- function(csv_name = NULL, ...) {
   # parameters control ------------------------------------------------------
   stopifnot(!is.null(csv_name))
@@ -180,7 +180,7 @@ import_int <- function(csv_name = NULL, ...) {
 
 
   # function ----------------------------------------------------------------
-  boo <- readr::read_delim(
+  tmp <- readr::read_delim(
     file = csv_name,
     delim = delim,
     escape_double = FALSE,
@@ -191,7 +191,7 @@ import_int <- function(csv_name = NULL, ...) {
     trim_ws = TRUE,
     skip = 2
   )
-  colnames(boo) <-
+  colnames(tmp) <-
     c("id",
       "datetime",
       "temperature",
@@ -199,15 +199,15 @@ import_int <- function(csv_name = NULL, ...) {
       "c02",
       "noise",
       "pressure")
-  boo$location <- dplyr::case_when(
+  tmp$location <- dplyr::case_when(
     grepl("SALON", csv_name) == TRUE ~ "SALON",
     grepl("BUREAU", csv_name) == TRUE ~ "BUREAU",
     grepl("CHAMBRE", csv_name) == TRUE ~ "CHAMBRE",
     grepl("GARAGE", csv_name) == TRUE ~ "GARAGE",
     TRUE ~ "UNKNOWN"
   )
-  boo <- netatmo_files_datetime(boo)
-  return(boo)
+  tmp <- netatmo_files_datetime(tmp)
+  return(tmp)
 }
 
 
@@ -253,9 +253,9 @@ netatmo_file_to_load <-
         full.names = TRUE
       ))
     file_lst <- file_lst[grep(pattern = "CSV$", file_lst)]
-    boo <-
+    tmp <-
       grepl("INTERIEUR", file_lst) + grepl("EXTERIEUR", file_lst) + grepl("PLUVIOMETRE", file_lst) + grepl("ANEMOMETRE", file_lst)
-    if (sum(boo) == 0)
+    if (sum(tmp) == 0)
       warnings("No Netatmo files found in ", directory)
 
     file_lst_int <- NULL
@@ -390,6 +390,7 @@ load_csv <- function(file_lst = NULL, ...) {
     "pressure" = NA
   )
 
+
   db_out <- data.frame(
     "location" = NA,
     "datetime" = NA,
@@ -411,15 +412,20 @@ load_csv <- function(file_lst = NULL, ...) {
   )
 
 
-  # lecture des fichiers csv
-  boo <- purrr::map(file_lst, length)
+  # init obj
+  db_in_raw_data <- db_out_raw_data <- NULL
 
-  if (boo[1] > 0) {
+
+  # lecture des fichiers csv
+  tmp <- purrr::map(file_lst, length)
+
+
+  if (tmp[1] > 0) {
     # int
-    boo1 <- to_add <- db_in1 <- datetime_new <- NULL
-    boo1 <- purrr::map(file_lst$file_lst_int, import_int)
-    to_add <- purrr::map(boo1, nrow) > 0
-    db_in1 <-  purrr::map_df(boo1[to_add], dplyr::bind_rows) %>%
+    tmp1 <- to_add <- db_in1 <- datetime_new <- NULL
+    tmp1 <- purrr::map(file_lst$file_lst_int, import_int)
+    to_add <- purrr::map(tmp1, nrow) > 0
+    db_in1 <- purrr::map_df(tmp1[to_add], dplyr::bind_rows) %>%
       dplyr::select(
         location,
         datetime,
@@ -443,14 +449,25 @@ load_csv <- function(file_lst = NULL, ...) {
     if (nrow(datetime_new) > 1) {
       db_in <- dplyr::bind_rows(db_in, datetime_new)
     }
+
+    # creation table finale
+    db_in_raw_data <- coalesce_join(
+      dataset_ori = db_in,
+      dataset_add = db_in1,
+      valid_cols = colnames(db_in),
+      join_by = c("location", "datetime"),
+      verbose = FALSE
+    )
+    db_in_raw_data <- db_in_raw_data[!is.na(db_in_raw_data$datetime), ]
   }
 
-  if (boo[2] > 0) {
+
+  if (tmp[2] > 0) {
     # ext
-    boo1 <- to_add <- db_out1 <- datetime_new <- NULL
-    boo1 <- purrr::map(file_lst$file_lst_ext, import_ext_temp_hum)
-    to_add <- purrr::map(boo1, nrow) > 0
-    db_out1 <- purrr::map_df(boo1[to_add], dplyr::bind_rows) %>%
+    tmp1 <- to_add <- db_out1 <- datetime_new <- NULL
+    tmp1 <- purrr::map(file_lst$file_lst_ext, import_ext_temp_hum)
+    to_add <- purrr::map(tmp1, nrow) > 0
+    db_out1 <- purrr::map_df(tmp1[to_add], dplyr::bind_rows) %>%
       dplyr::select(
         location,
         datetime,
@@ -471,14 +488,25 @@ load_csv <- function(file_lst = NULL, ...) {
     if (nrow(datetime_new) > 1) {
       db_out <- dplyr::bind_rows(db_out, datetime_new)
     }
+
+    # creation table finale
+    db_out_raw_data <- coalesce_join(
+      dataset_ori = db_out,
+      dataset_add = db_out1,
+      valid_cols = colnames(db_out),
+      join_by = c("location", "datetime"),
+      verbose = FALSE
+    )
+    db_out_raw_data <- db_out_raw_data[!is.na(db_out_raw_data$datetime), ]
   }
 
-  if (boo[3] > 0) {
+
+  if (tmp[3] > 0) {
     # ext_rain
-    boo1 <- to_add <- db_out2 <- datetime_new <- NULL
-    boo1 <- purrr::map(file_lst$file_lst_ext_rain, import_ext_rain)
-    to_add <- purrr::map(boo1, nrow) > 0
-    db_out2 <- purrr::map_df(boo1[to_add], dplyr::bind_rows) %>%
+    tmp1 <- to_add <- db_out2 <- datetime_new <- NULL
+    tmp1 <- purrr::map(file_lst$file_lst_ext_rain, import_ext_rain)
+    to_add <- purrr::map(tmp1, nrow) > 0
+    db_out2 <- purrr::map_df(tmp1[to_add], dplyr::bind_rows) %>%
       dplyr::select(
         location,
         datetime,
@@ -498,14 +526,25 @@ load_csv <- function(file_lst = NULL, ...) {
     if (nrow(datetime_new) > 1) {
       db_out <- dplyr::bind_rows(db_out, datetime_new)
     }
+
+    # creation table finale
+    db_out_raw_data <- coalesce_join(
+      dataset_ori = db_out_raw_data,
+      dataset_add = db_out2,
+      valid_cols = colnames(db_out),
+      join_by = c("location", "datetime"),
+      verbose = FALSE
+    )
+    db_out_raw_data <- db_out_raw_data[!is.na(db_out_raw_data$datetime), ]
   }
 
-  if (boo[4] > 0) {
+
+  if (tmp[4] > 0) {
     # ext_wind
-    boo1 <- to_add <- db_out3 <- datetime_new <- NULL
-    boo1 <- purrr::map(file_lst$file_lst_ext_wind, import_ext_wind)
-    to_add <- purrr::map(boo1, nrow) > 0
-    db_out3 <- purrr::map_df(boo1[to_add], dplyr::bind_rows) %>%
+    tmp1 <- to_add <- db_out3 <- datetime_new <- NULL
+    tmp1 <- purrr::map(file_lst$file_lst_ext_wind, import_ext_wind)
+    to_add <- purrr::map(tmp1, nrow) > 0
+    db_out3 <- purrr::map_df(tmp1[to_add], dplyr::bind_rows) %>%
       dplyr::select(
         location,
         datetime,
@@ -528,42 +567,22 @@ load_csv <- function(file_lst = NULL, ...) {
     if (nrow(datetime_new) > 1) {
       db_out <- dplyr::bind_rows(db_out, datetime_new)
     }
+
+    # creation table finale
+    db_out_raw_data <- coalesce_join(
+      dataset_ori = db_out_raw_data,
+      dataset_add = db_out3,
+      valid_cols = colnames(db_out),
+      join_by = c("location", "datetime"),
+      verbose = FALSE
+    )
+    db_out_raw_data <- db_out_raw_data[!is.na(db_out_raw_data$datetime), ]
   }
 
 
-  # creation tables finales
-  db_in_raw_data <- coalesce_join(
-    dataset_ori = db_in,
-    dataset_add = db_in1,
-    valid_cols = colnames(db_in),
-    join_by = c("location", "datetime"),
-    verbose = FALSE
-  )
-  db_out_raw_data <- coalesce_join(
-    dataset_ori = db_out,
-    dataset_add = db_out1,
-    valid_cols = colnames(db_out),
-    join_by = c("location", "datetime"),
-    verbose = FALSE
-  )
-  db_out_raw_data <- coalesce_join(
-    dataset_ori = db_out_raw_data,
-    dataset_add = db_out2,
-    valid_cols = colnames(db_out),
-    join_by = c("location", "datetime"),
-    verbose = FALSE
-  )
-  db_out_raw_data <- coalesce_join(
-    dataset_ori = db_out_raw_data,
-    dataset_add = db_out3,
-    valid_cols = colnames(db_out),
-    join_by = c("location", "datetime"),
-    verbose = FALSE
-  )
-
   return(list(
-    db_netatmo_indoor = db_in_raw_data[!is.na(db_in_raw_data$datetime), ],
-    db_netatmo_outdoor = db_out_raw_data[!is.na(db_out_raw_data$datetime), ]
+    db_netatmo_indoor = db_in_raw_data,
+    db_netatmo_outdoor = db_out_raw_data
   ))
 }
 
@@ -604,53 +623,54 @@ csv_to_rds <-
     # function ----------------------------------------------------------------
     db_lst <- load_csv(file_lst)
 
+
     dir.create(path = rds_directory,
                showWarnings = FALSE,
                recursive = TRUE)
 
-    if (nrow(db_lst$db_netatmo_indoor) > 0) {
+
+    if (!is.null(db_lst$db_netatmo_indoor)) {
       readr::write_rds(db_lst$db_netatmo_indoor, file.path(
         rds_directory,
         paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
       ))
+
+        if (file.exists(file.path(
+        rds_directory,
+        paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
+      ))) {
+        message("Fichier ", file.path(
+          rds_directory,
+          paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
+        ), " cree.")
+      } else {
+        message("Erreur lors de la sauvegarde du fichier ", file.path(
+          rds_directory,
+          paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
+        ))
+      }
     }
 
-    if (nrow(db_lst$db_netatmo_outdoor) > 0) {
+
+    if (!is.null(db_lst$db_netatmo_outdoor)) {
       readr::write_rds(db_lst$db_netatmo_outdoor, file.path(
         rds_directory,
         paste0(lubridate::date(Sys.time()), "-Netatmo_outdoor.rds")
       ))
-    }
-
-
-    if (file.exists(file.path(
-      rds_directory,
-      paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
-    ))) {
-      message("Fichier ", file.path(
-        rds_directory,
-        paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
-      ), " cree.")
-    } else {
-      message("Erreur lors de la sauvegarde du fichier ", file.path(
-        rds_directory,
-        paste0(lubridate::date(Sys.time()), "-Netatmo_indoor.rds")
-      ))
-    }
-
-    if (file.exists(file.path(
-      rds_directory,
-      paste0(lubridate::date(Sys.time()), "-Netatmo_outdoor.rds")
-    ))) {
-      message("Fichier ", file.path(
+      if (file.exists(file.path(
         rds_directory,
         paste0(lubridate::date(Sys.time()), "-Netatmo_outdoor.rds")
-      ), " cree.")
-    } else {
-      message("Erreur lors de la sauvegarde du fichier ", file.path(
-        rds_directory,
-        paste0(lubridate::date(Sys.time()), "-Netatmo_outdoor.rds")
-      ))
+      ))) {
+        message("Fichier ", file.path(
+          rds_directory,
+          paste0(lubridate::date(Sys.time()), "-Netatmo_outdoor.rds")
+        ), " cree.")
+      } else {
+        message("Erreur lors de la sauvegarde du fichier ", file.path(
+          rds_directory,
+          paste0(lubridate::date(Sys.time()), "-Netatmo_outdoor.rds")
+        ))
+      }
     }
 }
 

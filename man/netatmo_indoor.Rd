@@ -12,35 +12,44 @@ netatmo_indoor object R6
 dir_csv <- "f:/r/netatmo/csv"
 file_lst <- netatmo_file_to_load(dir_csv, pattern = list("indoor", "outdoor"))
 db_lst <- load_csv(file_lst)
-boo <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
+tmp <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
 }
 \section{Super class}{
-\code{\link[Rnetatmo:default_data_frame]{Rnetatmo::default_data_frame}} -> \code{netatmo_indoor}
+\code{\link[meteoR:default_data_frame]{meteoR::default_data_frame}} -> \code{netatmo_indoor}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{netatmo_indoor$new()}}
-\item \href{#method-finalize}{\code{netatmo_indoor$finalize()}}
-\item \href{#method-clone}{\code{netatmo_indoor$clone()}}
+\item \href{#method-netatmo_indoor-summary}{\code{netatmo_indoor$summary()}}
+\item \href{#method-netatmo_indoor-new}{\code{netatmo_indoor$new()}}
+\item \href{#method-netatmo_indoor-finalize}{\code{netatmo_indoor$finalize()}}
+\item \href{#method-netatmo_indoor-clone}{\code{netatmo_indoor$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="head">}\href{../../Rnetatmo/html/default_data_frame.html#method-head}{\code{Rnetatmo::default_data_frame$head()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="print">}\href{../../Rnetatmo/html/default_data_frame.html#method-print}{\code{Rnetatmo::default_data_frame$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="subset">}\href{../../Rnetatmo/html/default_data_frame.html#method-subset}{\code{Rnetatmo::default_data_frame$subset()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="summary">}\href{../../Rnetatmo/html/default_data_frame.html#method-summary}{\code{Rnetatmo::default_data_frame$summary()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="tail">}\href{../../Rnetatmo/html/default_data_frame.html#method-tail}{\code{Rnetatmo::default_data_frame$tail()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="view">}\href{../../Rnetatmo/html/default_data_frame.html#method-view}{\code{Rnetatmo::default_data_frame$view()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="Rnetatmo" data-topic="default_data_frame" data-id="write_file">}\href{../../Rnetatmo/html/default_data_frame.html#method-write_file}{\code{Rnetatmo::default_data_frame$write_file()}}\out{</span>}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="meteoR" data-topic="default_data_frame" data-id="head"><a href='../../meteoR/html/default_data_frame.html#method-default_data_frame-head'><code>meteoR::default_data_frame$head()</code></a></li>
+<li><span class="pkg-link" data-pkg="meteoR" data-topic="default_data_frame" data-id="print"><a href='../../meteoR/html/default_data_frame.html#method-default_data_frame-print'><code>meteoR::default_data_frame$print()</code></a></li>
+<li><span class="pkg-link" data-pkg="meteoR" data-topic="default_data_frame" data-id="subset"><a href='../../meteoR/html/default_data_frame.html#method-default_data_frame-subset'><code>meteoR::default_data_frame$subset()</code></a></li>
+<li><span class="pkg-link" data-pkg="meteoR" data-topic="default_data_frame" data-id="tail"><a href='../../meteoR/html/default_data_frame.html#method-default_data_frame-tail'><code>meteoR::default_data_frame$tail()</code></a></li>
+<li><span class="pkg-link" data-pkg="meteoR" data-topic="default_data_frame" data-id="view"><a href='../../meteoR/html/default_data_frame.html#method-default_data_frame-view'><code>meteoR::default_data_frame$view()</code></a></li>
+<li><span class="pkg-link" data-pkg="meteoR" data-topic="default_data_frame" data-id="write_file"><a href='../../meteoR/html/default_data_frame.html#method-default_data_frame-write_file'><code>meteoR::default_data_frame$write_file()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-netatmo_indoor-summary"></a>}}
+\if{latex}{\out{\hypertarget{method-netatmo_indoor-summary}{}}}
+\subsection{Method \code{summary()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$summary(...)}\if{html}{\out{</div>}}
 }
-\out{</details>}
+
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-netatmo_indoor-new"></a>}}
+\if{latex}{\out{\hypertarget{method-netatmo_indoor-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$new(dataset)}\if{html}{\out{</div>}}
@@ -49,14 +58,14 @@ boo <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dataset}}{dataset}
+\item{\code{dataset}}{dataset indoor}
 }
 \if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finalize"></a>}}
-\if{latex}{\out{\hypertarget{method-finalize}{}}}
+\if{html}{\out{<a id="method-netatmo_indoor-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-netatmo_indoor-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$finalize()}\if{html}{\out{</div>}}
@@ -64,8 +73,8 @@ boo <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-netatmo_indoor-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-netatmo_indoor-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
