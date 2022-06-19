@@ -51,6 +51,19 @@ gr <- ggplot(tmp, aes(x = date, y = temp, group = temp_idc, color = temp_idc)) +
 ggplotly(gr)
 
 
+tmp <- db_outdoor$data %>%
+  select(year, month_abbr, temperature) %>%
+  mutate(year = as.factor(year),
+         month_abbr = factor(month_abbr, ordered = TRUE, levels = c("janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"))) %>%
+  filter(month_abbr == "juin")
+gr <- ggplot(tmp, aes(x = month_abbr, y = temperature, fill = year)) +
+  theme_bw() +
+  xlab("") +
+  geom_boxplot()
+gr
+ggplotly(gr)
+
+
 # comparaison avec data nasapower
 db_nasapower <- get_power(
   community = "AG",

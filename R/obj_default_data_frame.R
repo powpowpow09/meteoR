@@ -1,5 +1,4 @@
 #' @import R6
-#' @import skimr
 #' @import DT
 #'
 #' @export

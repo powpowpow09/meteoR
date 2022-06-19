@@ -15,34 +15,18 @@
 netatmo_outdoor <- R6::R6Class(
   "netatmo_outdoor",
 
+
   # inherit ----
   inherit = default_data_frame,
+
 
   # public ----
   public = list(
 
-    summary = function(...) {
-      tmp <- dplyr::as_data_frame(private$.data) %>%
-        dplyr::select(location, year, month_abbr, temperature, humidity, rain, wind_angle, wind_strength, gust_angle, gust_strength) %>%
-        tidyr::gather(measure, value, -location, -year, -month_abbr) %>%
-        dplyr::group_by(location, year, month_abbr, measure) %>%
-        dplyr::summarise_all(funs(
-          min = round(min(., na.rm = TRUE), 1),
-          max = round(max(., na.rm = TRUE), 1),
-          Q25 = round(quantile(., probs = 0.25, na.rm = TRUE), 1),
-          Q75 = round(quantile(., probs = 0.75, na.rm = TRUE), 1),
-          avg = round(mean(., na.rm = TRUE), 1),
-          med = round(median(., na.rm = TRUE), 1),
-          sum = round(sum(., na.rm = TRUE), 1),
-          range = round(max - min, 1),
-          n_obs = n()
-        )) %>%
-        dplyr::arrange(location, year, month_abbr, measure)
-
-      return(knitr::kable(head(tmp, ...)))
-    },
-
-
+    #' @description
+    #' Create a new outdoor object
+    #' @param dataset outdoor dataset file
+    #' @return A new `netatmo_outdoor` object
     initialize = function(dataset) {
       stopifnot(
         colnames(dataset) == c(
@@ -69,15 +53,49 @@ netatmo_outdoor <- R6::R6Class(
         private$.data <- dataset
     },
 
-
+    #' @description
+    #' finalize function
     # finalize ----
     finalize = function() {
 
+    },
+
+
+    #' @description
+    #' Summary of netamo_outdoor object
+    #' @param ... options of head function
+    summary = function(...) {
+      if (nrow(private$.data) > 0) {
+        tmp <-
+          dplyr::as_data_frame(private$.data) %>%
+        dplyr::select(location, year, month_abbr, temperature, humidity, rain, wind_angle, wind_strength, gust_angle, gust_strength) %>%
+        tidyr::gather(measure, value, -location, -year, -month_abbr) %>%
+        dplyr::group_by(location, year, month_abbr, measure) %>%
+        dplyr::summarise_all(funs(
+          min = round(min(., na.rm = TRUE), 1),
+          max = round(max(., na.rm = TRUE), 1),
+          Q25 = round(quantile(., probs = 0.25, na.rm = TRUE), 1),
+          Q75 = round(quantile(., probs = 0.75, na.rm = TRUE), 1),
+          avg = round(mean(., na.rm = TRUE), 1),
+          med = round(median(., na.rm = TRUE), 1),
+          sum = round(sum(., na.rm = TRUE), 1),
+          range = round(max - min, 1),
+          n_obs = n()
+        )) %>%
+        dplyr::arrange(location, year, month_abbr, measure)
+
+        return(knitr::kable(head(tmp, ...)))
+      } else {
+        message("No data avaialbe")
+      }
     }
 
-      ),
+  ),
+
+
       # private ----
       private = list(),
+
 
       # active ----
       active = list()

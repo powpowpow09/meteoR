@@ -20,9 +20,9 @@ tmp <- netatmo_outdoor$new(db_lst$db_netatmo_outdoor)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-netatmo_outdoor-summary}{\code{netatmo_outdoor$summary()}}
 \item \href{#method-netatmo_outdoor-new}{\code{netatmo_outdoor$new()}}
 \item \href{#method-netatmo_outdoor-finalize}{\code{netatmo_outdoor$finalize()}}
+\item \href{#method-netatmo_outdoor-summary}{\code{netatmo_outdoor$summary()}}
 \item \href{#method-netatmo_outdoor-clone}{\code{netatmo_outdoor$clone()}}
 }
 }
@@ -39,31 +39,51 @@ tmp <- netatmo_outdoor$new(db_lst$db_netatmo_outdoor)
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-netatmo_outdoor-summary"></a>}}
-\if{latex}{\out{\hypertarget{method-netatmo_outdoor-summary}{}}}
-\subsection{Method \code{summary()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{netatmo_outdoor$summary(...)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-netatmo_outdoor-new"></a>}}
 \if{latex}{\out{\hypertarget{method-netatmo_outdoor-new}{}}}
 \subsection{Method \code{new()}}{
+Create a new outdoor object
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{netatmo_outdoor$new(dataset)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dataset}}{outdoor dataset file}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new `netatmo_outdoor` object
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-netatmo_outdoor-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-netatmo_outdoor-finalize}{}}}
 \subsection{Method \code{finalize()}}{
+finalize function
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{netatmo_outdoor$finalize()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-netatmo_outdoor-summary"></a>}}
+\if{latex}{\out{\hypertarget{method-netatmo_outdoor-summary}{}}}
+\subsection{Method \code{summary()}}{
+Summary of netamo_outdoor object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{netatmo_outdoor$summary(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{options of head function}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-netatmo_outdoor-clone"></a>}}

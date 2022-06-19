@@ -20,9 +20,9 @@ tmp <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-netatmo_indoor-summary}{\code{netatmo_indoor$summary()}}
 \item \href{#method-netatmo_indoor-new}{\code{netatmo_indoor$new()}}
 \item \href{#method-netatmo_indoor-finalize}{\code{netatmo_indoor$finalize()}}
+\item \href{#method-netatmo_indoor-summary}{\code{netatmo_indoor$summary()}}
 \item \href{#method-netatmo_indoor-clone}{\code{netatmo_indoor$clone()}}
 }
 }
@@ -39,18 +39,10 @@ tmp <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-netatmo_indoor-summary"></a>}}
-\if{latex}{\out{\hypertarget{method-netatmo_indoor-summary}{}}}
-\subsection{Method \code{summary()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$summary(...)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-netatmo_indoor-new"></a>}}
 \if{latex}{\out{\hypertarget{method-netatmo_indoor-new}{}}}
 \subsection{Method \code{new()}}{
+Create a new indoor object
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$new(dataset)}\if{html}{\out{</div>}}
 }
@@ -58,19 +50,40 @@ tmp <- netatmo_indoor_obj$new(db_lst$db_netatmo_indoor)
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dataset}}{dataset indoor}
+\item{\code{dataset}}{indoor dataset file}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new `netatmo_indoor` object
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-netatmo_indoor-finalize"></a>}}
 \if{latex}{\out{\hypertarget{method-netatmo_indoor-finalize}{}}}
 \subsection{Method \code{finalize()}}{
+finalize function
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$finalize()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-netatmo_indoor-summary"></a>}}
+\if{latex}{\out{\hypertarget{method-netatmo_indoor-summary}{}}}
+\subsection{Method \code{summary()}}{
+Summary of netamo_indoor object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{netatmo_indoor$summary(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{options of head function}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-netatmo_indoor-clone"></a>}}
