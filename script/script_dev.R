@@ -48,20 +48,49 @@ gr <- ggplot(tmp, aes(x = date, y = temp, group = temp_idc, color = temp_idc)) +
   geom_smooth() +
   geom_point(alpha = 0.6, aes(color = tmp$month_abbr)) +
   scale_color_viridis_d()
+gr
 ggplotly(gr)
 
 
 tmp <- db_outdoor$data %>%
   select(year, month_abbr, temperature) %>%
   mutate(year = as.factor(year),
-         month_abbr = factor(month_abbr, ordered = TRUE, levels = c("janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"))) %>%
-  filter(month_abbr == "juin")
+         month_abbr = factor(month_abbr, ordered = TRUE, levels = c("janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc")))
+
 gr <- ggplot(tmp, aes(x = month_abbr, y = temperature, fill = year)) +
   theme_bw() +
   xlab("") +
   geom_boxplot()
 gr
-ggplotly(gr)
+
+tmp <- db_outdoor$data %>%
+  group_by(year, month) %>%
+  summarize(min_temp = min(temperature, na.rm = TRUE), max_temp = max(temperature, na.rm = TRUE), avg_temp = mean(temperature, na.rm = TRUE), rain_tot = sum(rain, na.rm = TRUE)) %>%
+  mutate(month_c = sprintf("%02d", month))
+tmp[which(tmp$year == 2019 & tmp$month == 2), "max_temp"] <- tmp[which(tmp$year == 2019 & tmp$month == 2), "max_temp"] - 10
+gg <- ggplot2::ggplot(data =  tmp) +
+  ggplot2::aes(x = month_c, group = 1) +
+  ggplot2::geom_bar(ggplot2::aes(y = rain_tot / 10, col = "Rainfall"), fill = "paleturquoise", stat = "identity", alpha = 0.5) +
+#  ggplot2::geom_smooth(ggplot2::aes(y = max_temp, col = "Temp. Max"), size = 1) +
+#  ggplot2::geom_smooth(ggplot2::aes(y = avg_temp, col = "Temp. Avg"), size = 1) +
+#  ggplot2::geom_smooth(ggplot2::aes(y = min_temp, col = "Temp. Min"), size = 1) +
+  ggplot2::geom_line(ggplot2::aes(y = max_temp, col = "Temp. Max"), size = 1) +
+  ggplot2::geom_line(ggplot2::aes(y = avg_temp, col = "Temp. Avg"), size = 1) +
+  ggplot2::geom_line(ggplot2::aes(y = min_temp, col = "Temp. Min"), size = 1) +
+  ggplot2::geom_point(ggplot2::aes(y = max_temp), size = 0.5) +
+  ggplot2::geom_point(ggplot2::aes(y = avg_temp), size = 0.5) +
+  ggplot2::geom_point(ggplot2::aes(y = min_temp), size = 0.5) +
+  ggplot2::facet_wrap(.~ year, ncol = 3) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 0, vjust = 0.5, size = 9)) +
+  ggplot2::theme(strip.text.x = ggplot2::element_text(face = "bold", size = 9, colour = "darkorange", angle = 0)) +
+  ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", size = 15, colour = "blue")) +
+  ggplot2::theme(panel.background = ggplot2::element_rect(colour = "gray", size = 1)) +
+  ggplot2::scale_y_continuous(sec.axis = ggplot2::sec_axis(~ . * 10, name = "Rainfall (mm)")) +
+  ggplot2::labs(x = "Month", y = "Temperature (C°)", colour = "Parameter", title = "Ampiac") +
+  ggplot2::scale_colour_manual(values = c("dodgerblue", "seagreen", "red", "blue"))
+gg
+ggplotly(gg)
 
 
 # comparaison avec data nasapower
